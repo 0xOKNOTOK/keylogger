@@ -2,17 +2,28 @@
 try:
     import subprocess
     import keyboard
+    import socket
 
 except ModuleNotFoundError:
-    packages = ["keyboard","sounddevice","pynput"]
-    subprocess.call("pip install " + ' '.join(packages), shell=True)
+    packages = ["keyboard","socket","pynput"]
+    for package in packages:
+        print("package" + "" + package)
+        subprocess.call("pip install " + ' '.join(package), shell=True)
+        
+    
 
 finally:
-    USER_IP = "" #Same as MAC.
+    def err_handler():
+        exit()
+    
+
     USER_MAC = "" #Currently string could be int.
-    def get_mac_address(interface):#Specific interface required, perhaps scan for multiple if possible.
-        try:
-            #use some function/module to extract MAC (x-platform)
-        except:
-            #Error handling...
-        return mac_address
+    USER_HOSTNAME = socket.gethostname()
+    USER_IP = socket.gethostbyname(USER_HOSTNAME)
+    print(USER_HOSTNAME + '' + USER_IP)
+    def get_device_info(interface):#Specific interface required, perhaps scan for multiple if possible.
+        #try:
+            
+        #except:
+            #err_handler()
+        return interface
