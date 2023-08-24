@@ -1,12 +1,14 @@
 #!/usr/bin/python3
-try: #Try to load modules, if not found install on users machine?
-    import keyboard
+
+try:
     import subprocess
-    import sys
-except:
-    def install(packages):
-        subprocess.check_call([sys.executable, "-m", "pip", "install", packages])
+    import keyboard
+
+except ModuleNotFoundError:
+    packages = ["keyboard","sounddevice","pynput"]
+    subprocess.call("pip install " + ' '.join(packages), shell=True)
+
 finally:
     def start_logger():
-        return 0
+        print("logger")
     start_logger()
